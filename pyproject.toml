@@ -1,0 +1,40 @@
+[project]
+name = "price-scout"
+version = "1.0.0"
+description = "Polite async web scraper that tracks prices and stock between runs. Exports CSV, JSON and Excel."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28",
+    "beautifulsoup4>=4.12",
+    "typer>=0.12",
+    "rich>=13",
+    "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.8"]
+
+[project.scripts]
+price-scout = "price_scout.cli:app"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["price_scout*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "SIM"]
+ignore = ["E501", "B008"]
